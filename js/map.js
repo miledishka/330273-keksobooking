@@ -159,7 +159,7 @@ var renderOffer = function (offerData) {
 
   offerElement.querySelector('h3').textContent = offerData.offer.title;
   offerElement.querySelector('p small').textContent = offerData.offer.address;
-  offerElement.querySelector('.popup__price').textContent = offerData.offer.price + '&#x20bd;/ночь';
+  offerElement.querySelector('.popup__price').innerHTML = offerData.offer.price + '	&#x20bd/ночь';
   offerElement.querySelector('h4').textContent = offerType(offerData.offer.type);
   offerElement.querySelectorAll('p')[2].textContent = offerData.offer.rooms + ' комнаты для ' + offerData.offer.guests + ' гостей';
   offerElement.querySelectorAll('p')[3].textContent = 'Заезд после ' + offerData.offer.checkin + ', выезд до ' + offerData.offer.checkout;
