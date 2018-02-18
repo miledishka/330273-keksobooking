@@ -3,9 +3,8 @@
 (function () {
   var PHOTO_WIDTH = 68;
   var PHOTO_HEIGHT = 68;
+
   var offerTemplate = document.querySelector('template').content;
-  var offerElement = offerTemplate.cloneNode(true);
-  var features = offerElement.querySelector('.popup__features');
   var map = document.querySelector('.map');
   var mapFilters = document.querySelector('.map__filters-container');
 
@@ -19,15 +18,18 @@
   };
 
   window.renderOffer = function (offerData) {
+    var offerElement = offerTemplate.cloneNode(true);
+
     offerElement.querySelector('h3').textContent = offerData.offer.title;
     offerElement.querySelector('p small').textContent = offerData.offer.address;
     offerElement.querySelector('.popup__price').innerHTML = offerData.offer.price + '	&#x20bd/ночь';
     offerElement.querySelector('h4').textContent = window.offerType(offerData.offer.type);
-    offerElement.querySelectorAll('p')[2].textContent = offerData.offer.rooms + ' комнаты для ' + offerData.offer.guests + ' гостей';
-    offerElement.querySelectorAll('p')[3].textContent = 'Заезд после ' + offerData.offer.checkin + ', выезд до ' + offerData.offer.checkout;
-    offerElement.querySelectorAll('p')[4].textContent = offerData.offer.description;
+    offerElement.querySelectorAll('p.rooms-and-guests').textContent = offerData.offer.rooms + ' комнаты для ' + offerData.offer.guests + ' гостей';
+    offerElement.querySelectorAll('p.checkin-and-checkout').textContent = 'Заезд после ' + offerData.offer.checkin + ', выезд до ' + offerData.offer.checkout;
+    offerElement.querySelectorAll('p.description').textContent = offerData.offer.description;
     offerElement.querySelector('.popup__avatar').src = offerData.author.avatar;
 
+    var features = offerElement.querySelector('.popup__features');
     for (var i = 0; i < offerData.offer.features.length; i++) {
       var featureLi = document.createElement('li');
       featureLi.classList.add('feature');
