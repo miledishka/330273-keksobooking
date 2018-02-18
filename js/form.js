@@ -21,14 +21,14 @@
   };
 
   var onResetFormClickHandler = function () {
-    var mapPins = document.querySelectorAll(window.PINS_WITHOUT_MAIN_PIN);
+    var mapPins = document.querySelectorAll(window.constants.PINS_WITHOUT_MAIN_PIN);
 
     mapPins.forEach(function (pin) {
       pin.remove();
     });
     window.offers = [];
     mapWithPins.classList.add('map--faded');
-    userForm.classList.add(window.NOTICE_FORM_DISABLED);
+    userForm.classList.add(window.constants.NOTICE_FORM_DISABLED);
   };
 
   window.onRoomNumberChangeHandler = function () {

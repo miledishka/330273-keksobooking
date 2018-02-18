@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  window.OFFERS_COUNT = 8;
   var MIN_OFFER_AVATAR = 1;
   var MAX_OFFER_AVATAR = 8;
   var MIN_OFFER_PRICE = 1000;
@@ -14,8 +13,12 @@
   var MAX_LOCATION_X = 900;
   var MIN_LOCATION_Y = 150;
   var MAX_LOCATION_Y = 500;
-  window.NOTICE_FORM_DISABLED = 'notice__form--disabled';
-  window.PINS_WITHOUT_MAIN_PIN = '.map__pin:not(.map__pin--main)';
+
+  window.constants = {
+    'OFFERS_COUNT': 8,
+    'NOTICE_FORM_DISABLED': 'notice__form--disabled',
+    'PINS_WITHOUT_MAIN_PIN': '.map__pin:not(.map__pin--main)',
+  };
 
   var arrayShuffle = function () {
     return Math.random() - 0.5;

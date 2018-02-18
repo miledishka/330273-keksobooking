@@ -8,13 +8,13 @@
     var userForm = document.querySelector('.notice__form');
 
     if (mapWithPins.classList.contains('map--faded')) {
-      window.generateOffers(window.OFFERS_COUNT);
+      window.generateOffers(window.constants.OFFERS_COUNT);
       window.generateButtons();
       window.onRoomNumberChangeHandler();
       mapWithPins.classList.remove('map--faded');
     }
 
-    userForm.classList.remove(window.NOTICE_FORM_DISABLED);
+    userForm.classList.remove(window.constants.NOTICE_FORM_DISABLED);
   };
 
   var onPinMouseDownHandler = function (evt) {
