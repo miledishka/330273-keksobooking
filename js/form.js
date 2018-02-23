@@ -56,6 +56,31 @@
     }
   };
 
+  var onLoadFormHandler = function () {
+    window.removeErrors();
+    userForm.reset();
+    window.onRoomNumberChangeHandler();
+  };
+
+  var errorFormHandler = function (errors) {
+    var errorsForShow = [];
+
+    for (var i = 0; i < errors.length; i++) {
+      var formElement = userForm.querySelector('name=[' + errors[i].fieldName + ']');
+      formElement.style.outline = '2px dashed red';
+
+      var errorMessage = '<b>' + errors[i].fieldName + ':</b> ' + errors[i].errorMessage + '<br>';
+      errorsForShow.push(errorMessage);
+    }
+
+    window.renderErrors(errorsForShow);
+  };
+
+  var onSubmitHandler = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(userForm), onLoadFormHandler, errorFormHandler);
+  };
+
   var userForm = document.querySelector('.notice__form');
   window.address = document.querySelector('#address');
   var roomType = document.querySelector('#type');
@@ -67,6 +92,7 @@
   var resetForm = document.querySelector('.form__reset');
   var mapWithPins = document.querySelector('.map');
 
+  userForm.addEventListener('submit', onSubmitHandler);
   roomType.addEventListener('change', onRoomTypeChangeHandler);
   roomTimeIn.addEventListener('change', onRoomTimeInChangeHandler);
   roomTimeOut.addEventListener('change', onRoomTimeOutChangeHandler);

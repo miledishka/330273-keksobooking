@@ -17,14 +17,23 @@
     'max': VALID_MAP_AREA.max_x + MAP_X_OFFSET,
   };
 
+  var onLoadOffersHandler = function (offers) {
+    window.removeErrors();
+    window.offers = offers;
+    window.generateButtons();
+    window.onRoomNumberChangeHandler();
+    mapWithPins.classList.remove('map--faded');
+  };
+
+  var onErrorLoadOffersHandler = function (errors) {
+    window.renderErrors(errors);
+  };
+
   var onMapPinMainMouseUpHandler = function () {
     var userForm = document.querySelector('.notice__form');
 
     if (mapWithPins.classList.contains('map--faded')) {
-      window.generateOffers(window.constants.OFFERS_COUNT);
-      window.generateButtons();
-      window.onRoomNumberChangeHandler();
-      mapWithPins.classList.remove('map--faded');
+      window.backend.load(onLoadOffersHandler, onErrorLoadOffersHandler);
     }
 
     userForm.classList.remove(window.constants.NOTICE_FORM_DISABLED);
