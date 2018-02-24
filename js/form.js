@@ -4,8 +4,8 @@
   window.onRoomTypeChangeHandler = function (evt) {
     var DEFAULT_VALUE = 'flat';
     var ROOM_PRICES_LIMITS = {
-      'flat': 0,
-      'bungalo': 1000,
+      'bungalo': 0,
+      'flat': 1000,
       'house': 5000,
       'palace': 10000
     };
