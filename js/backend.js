@@ -4,6 +4,7 @@
   var LOAD_URL = 'https://js.dump.academy/keksobooking/data';
   var SAVE_URL = 'https://js.dump.academy/keksobooking';
   var STATUS_SUCCESS = 200;
+  var STATUS_BAD_REQUEST = 400;
   var REQUEST_TIMEOUT = 10000; // 10s
 
   var load = function (onLoad, onError) {
@@ -42,7 +43,7 @@
     var onLoadHandler = function () {
       if (xhr.status === STATUS_SUCCESS) {
         onLoad(xhr.response);
-      } else if (xhr.status === 400) {
+      } else if (xhr.status === STATUS_BAD_REQUEST) {
         onError(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -70,11 +71,7 @@
     window.removeErrors();
 
     var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'fixed';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
+    node.classList.add('errors');
     node.id = 'errors';
     node.innerHTML = Array(errors).join('<br>');
     document.body.insertAdjacentElement('afterbegin', node);
