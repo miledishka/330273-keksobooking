@@ -30,11 +30,7 @@
   };
 
   var onResetFormClickHandler = function () {
-    var mapPins = document.querySelectorAll(window.constants.PINS_WITHOUT_MAIN_PIN);
-
-    mapPins.forEach(function (pin) {
-      pin.remove();
-    });
+    window.removePins(window.offers);
     window.offers = [];
     mapWithPins.classList.add('map--faded');
     window.userForm.classList.add(window.constants.NOTICE_FORM_DISABLED);
