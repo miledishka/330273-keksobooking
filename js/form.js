@@ -1,7 +1,8 @@
 'use strict';
 
 (function () {
-  var onRoomTypeChangeHandler = function (evt) {
+  window.onRoomTypeChangeHandler = function (evt) {
+    var DEFAULT_VALUE = 'flat';
     var ROOM_PRICES_LIMITS = {
       'flat': 0,
       'bungalo': 1000,
@@ -9,7 +10,15 @@
       'palace': 10000
     };
 
-    roomPrice.min = ROOM_PRICES_LIMITS[evt.currentTarget.value];
+    var price;
+    if (evt) {
+      price = ROOM_PRICES_LIMITS[evt.currentTarget.value];
+    } else {
+      price = ROOM_PRICES_LIMITS[DEFAULT_VALUE];
+    }
+
+    roomPrice.min = price;
+    roomPrice.placeholder = price;
   };
 
   var onRoomTimeInChangeHandler = function (evt) {
@@ -28,7 +37,7 @@
     });
     window.offers = [];
     mapWithPins.classList.add('map--faded');
-    userForm.classList.add(window.constants.NOTICE_FORM_DISABLED);
+    window.userForm.classList.add(window.constants.NOTICE_FORM_DISABLED);
   };
 
   window.onRoomNumberChangeHandler = function () {
@@ -56,7 +65,34 @@
     }
   };
 
-  var userForm = document.querySelector('.notice__form');
+  var onLoadFormHandler = function () {
+    window.removeErrors();
+    window.userForm.reset();
+    window.onRoomNumberChangeHandler();
+    window.onRoomTypeChangeHandler();
+    window.setCurrentMainPosition();
+  };
+
+  var errorFormHandler = function (errors) {
+    var errorsForShow = [];
+
+    for (var i = 0; i < errors.length; i++) {
+      var formElement = window.userForm.querySelector('[name=' + errors[i].fieldName + ']');
+      formElement.style.outline = '2px dashed red';
+
+      var errorMessage = '<b>' + errors[i].fieldName + ':</b> ' + errors[i].errorMessage;
+      errorsForShow.push(errorMessage);
+    }
+
+    window.renderErrors(errorsForShow);
+  };
+
+  var onSubmitHandler = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(window.userForm), onLoadFormHandler, errorFormHandler);
+  };
+
+  window.userForm = document.querySelector('.notice__form');
   window.address = document.querySelector('#address');
   var roomType = document.querySelector('#type');
   var roomPrice = document.querySelector('#price');
@@ -67,7 +103,8 @@
   var resetForm = document.querySelector('.form__reset');
   var mapWithPins = document.querySelector('.map');
 
-  roomType.addEventListener('change', onRoomTypeChangeHandler);
+  window.userForm.addEventListener('submit', onSubmitHandler);
+  roomType.addEventListener('change', window.onRoomTypeChangeHandler);
   roomTimeIn.addEventListener('change', onRoomTimeInChangeHandler);
   roomTimeOut.addEventListener('change', onRoomTimeOutChangeHandler);
   roomNumber.addEventListener('change', window.onRoomNumberChangeHandler);
