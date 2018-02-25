@@ -4,8 +4,8 @@
   window.onRoomTypeChangeHandler = function (evt) {
     var DEFAULT_VALUE = 'flat';
     var ROOM_PRICES_LIMITS = {
-      'flat': 0,
-      'bungalo': 1000,
+      'bungalo': 0,
+      'flat': 1000,
       'house': 5000,
       'palace': 10000
     };
@@ -30,11 +30,7 @@
   };
 
   var onResetFormClickHandler = function () {
-    var mapPins = document.querySelectorAll(window.constants.PINS_WITHOUT_MAIN_PIN);
-
-    mapPins.forEach(function (pin) {
-      pin.remove();
-    });
+    window.removePins(window.offers);
     window.offers = [];
     mapWithPins.classList.add('map--faded');
     window.userForm.classList.add(window.constants.NOTICE_FORM_DISABLED);

@@ -17,10 +17,17 @@
     'max': VALID_MAP_AREA.max_x + MAP_X_OFFSET,
   };
 
+  var setIdToOffers = function () {
+    for (var i = 0; i < window.offers.length; i++) {
+      window.offers[i].index = i;
+    }
+  };
+
   var onLoadOffersHandler = function (offers) {
-    window.removeErrors();
     window.offers = offers;
-    window.generateButtons();
+    setIdToOffers();
+    window.removeErrors();
+    window.generateButtons(window.offers);
     window.onRoomNumberChangeHandler();
     window.onRoomTypeChangeHandler();
     mapWithPins.classList.remove('map--faded');

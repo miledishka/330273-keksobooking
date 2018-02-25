@@ -24,9 +24,9 @@
     offerElement.querySelector('p small').textContent = offerData.offer.address;
     offerElement.querySelector('.popup__price').innerHTML = offerData.offer.price + '	&#x20bd/ночь';
     offerElement.querySelector('h4').textContent = window.offerType(offerData.offer.type);
-    offerElement.querySelectorAll('p.rooms-and-guests').textContent = offerData.offer.rooms + ' комнаты для ' + offerData.offer.guests + ' гостей';
-    offerElement.querySelectorAll('p.checkin-and-checkout').textContent = 'Заезд после ' + offerData.offer.checkin + ', выезд до ' + offerData.offer.checkout;
-    offerElement.querySelectorAll('p.description').textContent = offerData.offer.description;
+    offerElement.querySelector('p.rooms-and-guests').textContent = offerData.offer.rooms + ' комнаты для ' + offerData.offer.guests + ' гостей';
+    offerElement.querySelector('p.checkin-and-checkout').textContent = 'Заезд после ' + offerData.offer.checkin + ', выезд до ' + offerData.offer.checkout;
+    offerElement.querySelector('p.description').textContent = offerData.offer.description;
     offerElement.querySelector('.popup__avatar').src = offerData.author.avatar;
 
     var features = offerElement.querySelector('.popup__features');
