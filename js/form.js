@@ -67,7 +67,7 @@
     window.userForm.reset();
     window.onRoomNumberChangeHandler();
     window.onRoomTypeChangeHandler();
-    window.setCurrentMainPosition();
+    onResetFormClickHandler();
   };
 
   var errorFormHandler = function (errors) {
