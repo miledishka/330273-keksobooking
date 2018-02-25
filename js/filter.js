@@ -1,13 +1,13 @@
 'use strict';
 
 (function () {
+  var FILTER_ANY = 'any';
   var filterForm = document.querySelector('.map__filters');
   var houseType = filterForm.querySelector('#housing-type');
   var housePrice = filterForm.querySelector('#housing-price');
   var houseRooms = filterForm.querySelector('#housing-rooms');
   var houseGuests = filterForm.querySelector('#housing-guests');
   var houseFeatures = filterForm.querySelector('#housing-features');
-  var FILTER_ANY = 'any';
 
   var compareArrays = function (offerFeatures, checkedFeatures) {
     var result = false;
