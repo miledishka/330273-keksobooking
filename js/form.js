@@ -30,6 +30,7 @@
   };
 
   var onResetFormClickHandler = function () {
+    window.setDefaultMainPinPosition();
     window.removePins(window.offers);
     window.offers = [];
     mapWithPins.classList.add('map--faded');

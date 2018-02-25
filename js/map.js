@@ -16,6 +16,16 @@
     'min': VALID_MAP_AREA.min_x + MAP_X_OFFSET,
     'max': VALID_MAP_AREA.max_x + MAP_X_OFFSET,
   };
+  var MAP_FADED_CLASS = 'map--faded';
+  var MAIN_PIN_START_POSITION = {
+    x: '50%',
+    y: '375px'
+  };
+
+  window.setDefaultMainPinPosition = function () {
+    mapPinMain.style.top = MAIN_PIN_START_POSITION.y;
+    mapPinMain.style.left = MAIN_PIN_START_POSITION.x;
+  };
 
   var setIdToOffers = function () {
     for (var i = 0; i < window.offers.length; i++) {
@@ -30,7 +40,7 @@
     window.generateButtons(window.offers);
     window.onRoomNumberChangeHandler();
     window.onRoomTypeChangeHandler();
-    mapWithPins.classList.remove('map--faded');
+    mapWithPins.classList.remove(MAP_FADED_CLASS);
   };
 
   var onErrorLoadOffersHandler = function (errors) {
@@ -38,7 +48,7 @@
   };
 
   var onMapPinMainMouseUpHandler = function () {
-    if (mapWithPins.classList.contains('map--faded')) {
+    if (mapWithPins.classList.contains(MAP_FADED_CLASS)) {
       window.backend.load(onLoadOffersHandler, onErrorLoadOffersHandler);
     }
 
