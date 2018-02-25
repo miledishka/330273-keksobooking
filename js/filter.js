@@ -9,8 +9,13 @@
   var houseFeatures = filterForm.querySelector('#housing-features');
   var FILTER_ANY = 'any';
 
-  var compareArrays = function (array1, array2) {
-    return array1.slice().sort().join(',') === array2.slice().sort().join(',');
+  var compareArrays = function (offerFeatures, checkedFeatures) {
+    var result = false;
+    checkedFeatures.forEach(function (checkedFeature) {
+      result = offerFeatures.includes(checkedFeature);
+    });
+
+    return result;
   };
 
   var renderFilteredOffers = function () {
@@ -23,7 +28,7 @@
       features: houseFeatures.value
     };
 
-    var filteredOffers = window.offers.slice().filter(filterOffers);
+    var filteredOffers = window.offers.filter(filterOffers);
     window.removePins(filteredOffers);
     window.generateButtons(filteredOffers);
   };
