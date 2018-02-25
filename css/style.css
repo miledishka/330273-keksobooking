@@ -746,6 +746,11 @@ textarea:focus
     text-align: center;
 }
 
+.form__photo
+{
+    margin-left: 10px;
+}
+
 .form__reset
 {
     font: 14px Roboto, sans-serif;
