@@ -5,11 +5,19 @@
   var BUTTON_PIX_HEIGHT = 70;
   var PIN_HEIGHT = 40;
   var PIN_WIDTH = 40;
+  var ESC_KEYCODE = 27;
 
   window.removePopup = function () {
     var popup = document.querySelector('.map__card.popup');
     if (popup !== null) {
       popup.remove();
+      document.removeEventListener('keydown', onKeydownPopupCloseHandler);
+    }
+  };
+
+  var onKeydownPopupCloseHandler = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      window.removePopup();
     }
   };
 
@@ -21,6 +29,7 @@
 
     var popupButtonClose = document.querySelector('.popup__close');
     popupButtonClose.addEventListener('click', onClosePinClickHandler);
+    document.addEventListener('keydown', onKeydownPopupCloseHandler);
   };
 
   var onClosePinClickHandler = function () {

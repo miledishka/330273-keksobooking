@@ -30,6 +30,7 @@
   };
 
   var onResetFormClickHandler = function () {
+    window.setDefaultMainPinPosition();
     window.removePins(window.offers);
     window.offers = [];
     mapWithPins.classList.add('map--faded');
@@ -66,7 +67,7 @@
     window.userForm.reset();
     window.onRoomNumberChangeHandler();
     window.onRoomTypeChangeHandler();
-    window.setCurrentMainPosition();
+    onResetFormClickHandler();
   };
 
   var errorFormHandler = function (errors) {
