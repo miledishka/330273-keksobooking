@@ -3,11 +3,12 @@
 (function () {
   var mapWithPins = document.querySelector('.map');
   var HALF_MAIN_PIN_HEIGHT = 44;
+  var HALF_MAIN_PIN_WIDTH = 33;
   var MAP_BOTOM_FILTER_HEIGHT = 50;
   var MIN_Y_POSITION = 150;
   var VALID_MAP_AREA = {
-    'min_x': 0,
-    'max_x': mapWithPins.clientWidth,
+    'min_x': HALF_MAIN_PIN_WIDTH,
+    'max_x': mapWithPins.clientWidth - HALF_MAIN_PIN_WIDTH,
     'min_y': MIN_Y_POSITION - HALF_MAIN_PIN_HEIGHT,
     'max_y': mapWithPins.clientHeight - HALF_MAIN_PIN_HEIGHT - MAP_BOTOM_FILTER_HEIGHT
   };
