@@ -694,10 +694,13 @@ textarea:focus
     min-height: 230px;
 }
 
-.notice__form input[type=file]
+.notice__photo input[type=file]
 {
     position: absolute;
-    left: -900em;
+    margin-left: 80px;
+    width: 130px;
+    height: 70px;
+    opacity: 0;
 }
 
 .notice__form .upload
@@ -736,6 +739,14 @@ textarea:focus
 .form__photo-container
 {
     width: 140px;
+}
+
+.form__photo-container input[type=file]
+{
+    position: absolute;
+    width: 130px;
+    height: 70px;
+    opacity: 0;
 }
 
 .form__element--submit

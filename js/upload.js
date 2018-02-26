@@ -8,26 +8,29 @@
   var uploadImage = function (fileChooser, preview) {
     var onFileChooserChange = function (evt) {
       var file = evt.currentTarget.files[0];
-      var fileName = file.name.toLowerCase();
 
-      var matches = FILE_TYPES.some(function (it) {
-        return fileName.endsWith(it);
-      });
+      if (file) {
+        var fileName = file.name.toLowerCase();
 
-      if (matches) {
-        var reader = new FileReader();
+        var matches = FILE_TYPES.some(function (it) {
+          return fileName.endsWith(it);
+        });
 
-        var onFileLoad = function () {
-          var image = document.createElement('img');
-          image.src = reader.result;
-          image.width = UPLOAD_IMAGE_WIDTH;
-          image.height = UPLOAD_IMAGE_HEIGHT;
+        if (matches) {
+          var reader = new FileReader();
 
-          preview.replaceChild(image, preview.querySelector('img'));
-        };
+          var onFileLoad = function () {
+            var image = document.createElement('img');
+            image.src = reader.result;
+            image.width = UPLOAD_IMAGE_WIDTH;
+            image.height = UPLOAD_IMAGE_HEIGHT;
 
-        reader.addEventListener('load', onFileLoad);
-        reader.readAsDataURL(file);
+            preview.replaceChild(image, preview.querySelector('img'));
+          };
+
+          reader.addEventListener('load', onFileLoad);
+          reader.readAsDataURL(file);
+        }
       }
     };
 
