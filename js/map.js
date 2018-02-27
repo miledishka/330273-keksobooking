@@ -12,11 +12,6 @@
     'min_y': MIN_Y_POSITION - HALF_MAIN_PIN_HEIGHT,
     'max_y': mapWithPins.clientHeight - HALF_MAIN_PIN_HEIGHT - MAP_BOTOM_FILTER_HEIGHT
   };
-  var MAP_X_OFFSET = Math.max(0, (window.innerWidth - mapWithPins.clientWidth) / 2);
-  var VALID_X_WITH_MAP_OFFSET = {
-    'min': VALID_MAP_AREA.min_x + MAP_X_OFFSET,
-    'max': VALID_MAP_AREA.max_x + MAP_X_OFFSET,
-  };
   var MAP_FADED_CLASS = 'map--faded';
   var MAIN_PIN_START_POSITION = {
     x: '50%',
@@ -88,8 +83,8 @@
       };
 
       startCoords = {
-        x: validPosition(moveEvt.clientX, VALID_X_WITH_MAP_OFFSET.min, VALID_X_WITH_MAP_OFFSET.max),
-        y: validPosition(moveEvt.clientY, VALID_MAP_AREA.min_y, VALID_MAP_AREA.max_y)
+        x: moveEvt.clientX,
+        y: moveEvt.clientY
       };
 
       var top = mapPinMain.offsetTop - shift.y;

@@ -31,6 +31,7 @@
 
   var onResetFormClickHandler = function () {
     window.setDefaultMainPinPosition();
+    window.removePopup();
     window.removePins(window.offers);
     window.offers = [];
     mapWithPins.classList.add('map--faded');
