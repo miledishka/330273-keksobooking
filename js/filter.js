@@ -2,6 +2,10 @@
 
 (function () {
   var FILTER_ANY = 'any';
+  var FILTER_PRICES = {
+    low: 10000,
+    high: 50000
+  };
   var filterForm = document.querySelector('.map__filters');
   var houseType = filterForm.querySelector('#housing-type');
   var housePrice = filterForm.querySelector('#housing-price');
@@ -10,12 +14,13 @@
   var houseFeatures = filterForm.querySelector('#housing-features');
 
   var compareArrays = function (offerFeatures, checkedFeatures) {
-    var result = false;
-    checkedFeatures.forEach(function (checkedFeature) {
-      result = offerFeatures.includes(checkedFeature);
-    });
+    for (var i = 0; i < checkedFeatures.length; i++) {
+      if (!offerFeatures.includes(checkedFeatures[i])) {
+        return false;
+      }
+    }
 
-    return result;
+    return true;
   };
 
   var renderFilteredOffers = function () {
@@ -62,13 +67,13 @@
         result = true;
         break;
       case 'low':
-        result = roomPrice < 10000;
+        result = roomPrice < FILTER_PRICES.low;
         break;
       case 'high':
-        result = roomPrice > 50000;
+        result = roomPrice > FILTER_PRICES.high;
         break;
       case 'middle':
-        result = roomPrice >= 10000 && roomPrice <= 50000;
+        result = roomPrice >= FILTER_PRICES.low && roomPrice <= FILTER_PRICES.high;
         break;
     }
 
@@ -85,17 +90,13 @@
 
   var houseFeaturesFilter = function (element) {
     var checkedHouseFeatures = houseFeatures.querySelectorAll('input:checked');
-    var checkedElements = [];
+    checkedHouseFeatures = Array.prototype.slice.call(checkedHouseFeatures);
 
-    checkedHouseFeatures.forEach(function (feature) {
-      checkedElements.push(feature.value);
+    var checkedElements = checkedHouseFeatures.map(function (feature) {
+      return feature.value;
     });
 
-    if (checkedElements.length === 0) {
-      return true;
-    } else {
-      return compareArrays(element.offer.features, checkedElements);
-    }
+    return compareArrays(element.offer.features, checkedElements);
   };
 
   filterForm.addEventListener('change', onFilterFormChange);
