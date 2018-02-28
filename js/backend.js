@@ -6,6 +6,7 @@
   var STATUS_SUCCESS = 200;
   var STATUS_BAD_REQUEST = 400;
   var REQUEST_TIMEOUT = 10000; // 10s
+  var DEFAULT_ERROR_MESSAGE = 'Произошла ошибка соединения';
 
   var load = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -21,7 +22,7 @@
     };
 
     var onErrorHandler = function () {
-      onError('Произошла ошибка соединения');
+      onError(DEFAULT_ERROR_MESSAGE);
     };
 
     var onTimeoutHandler = function () {
