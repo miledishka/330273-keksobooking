@@ -10,12 +10,8 @@
       'palace': 10000
     };
 
-    var price;
-    if (evt) {
-      price = ROOM_PRICES_LIMITS[evt.currentTarget.value];
-    } else {
-      price = ROOM_PRICES_LIMITS[DEFAULT_VALUE];
-    }
+    var roomType = evt ? evt.currentTarget.value : DEFAULT_VALUE;
+    var price = ROOM_PRICES_LIMITS[roomType];
 
     roomPrice.min = price;
     roomPrice.placeholder = price;
@@ -50,11 +46,7 @@
     for (var i = 0; i < roomCapacity.options.length; i++) {
       var roomOption = roomCapacity.options[i];
 
-      if (availableCapacity.includes(roomOption.value)) {
-        roomOption.disabled = false;
-      } else {
-        roomOption.disabled = true;
-      }
+      roomOption.disabled = !availableCapacity.includes(roomOption.value);
     }
 
     if (roomCapacity.selectedOptions[0].disabled) {
