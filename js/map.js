@@ -32,7 +32,7 @@
   var onLoadOffersHandler = function (offers) {
     window.offers = offers;
     setIdToOffers();
-    window.removeErrors();
+    window.backend.removeErrors();
     window.generateButtons(window.offers);
     window.onRoomNumberChangeHandler();
     window.onRoomTypeChangeHandler();
@@ -40,7 +40,7 @@
   };
 
   var onErrorLoadOffersHandler = function (errors) {
-    window.renderErrors(errors);
+    window.backend.renderErrors(errors);
   };
 
   var onMapPinMainMouseUpHandler = function () {

@@ -1,28 +1,27 @@
 'use strict';
 
 (function () {
-  var LOAD_URL = 'https://js.dump.academy/keksobooking/data';
-  var SAVE_URL = 'https://js.dump.academy/keksobooking';
+  var SERVER_URL = 'https://js.dump.academy/keksobooking';
   var STATUS_SUCCESS = 200;
   var STATUS_BAD_REQUEST = 400;
   var REQUEST_TIMEOUT = 10000; // 10s
-  var DEFAULT_ERROR_MESSAGE = 'Произошла ошибка соединения';
 
-  var load = function (onLoad, onError) {
+  var setup = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    xhr.timeout = REQUEST_TIMEOUT;
 
     var onLoadHandler = function () {
       if (xhr.status === STATUS_SUCCESS) {
         onLoad(xhr.response);
+      } else if (xhr.status === STATUS_BAD_REQUEST) {
+        onError(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError(xhr.response);
       }
     };
 
     var onErrorHandler = function () {
-      onError(DEFAULT_ERROR_MESSAGE);
+      onError('Произошла ошибка соединения');
     };
 
     var onTimeoutHandler = function () {
@@ -33,43 +32,32 @@
     xhr.addEventListener('error', onErrorHandler);
     xhr.addEventListener('timeout', onTimeoutHandler);
 
-    xhr.open('GET', LOAD_URL);
+    xhr.timeout = REQUEST_TIMEOUT; // 10s
+
+    return xhr;
+  };
+
+  var load = function (onLoad, onError) {
+    var xhr = setup(onLoad, onError);
+    xhr.open('GET', SERVER_URL + '/data');
     xhr.send();
   };
 
   var save = function (data, onLoad, onError) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-
-    var onLoadHandler = function () {
-      if (xhr.status === STATUS_SUCCESS) {
-        onLoad(xhr.response);
-      } else if (xhr.status === STATUS_BAD_REQUEST) {
-        onError(xhr.response);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    };
-
-    var onErrorHandler = function () {
-      onError(xhr.response);
-    };
-
-    xhr.addEventListener('error', onErrorHandler);
-    xhr.addEventListener('load', onLoadHandler);
-    xhr.open('POST', SAVE_URL);
+    var xhr = setup(onLoad, onError);
+    xhr.open('POST', SERVER_URL);
     xhr.send(data);
   };
 
-  window.removeErrors = function () {
+  var removeErrors = function () {
     var errorsElement = document.querySelector('#errors');
     if (errorsElement !== null) {
       errorsElement.remove();
     }
   };
 
-  window.renderErrors = function (errors) {
-    window.removeErrors();
+  var renderErrors = function (errors) {
+    window.backend.removeErrors();
 
     var node = document.createElement('div');
     node.classList.add('errors');
@@ -80,6 +68,8 @@
 
   window.backend = {
     load: load,
-    save: save
+    save: save,
+    renderErrors: renderErrors,
+    removeErrors: removeErrors
   };
 })();

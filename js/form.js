@@ -56,7 +56,7 @@
   };
 
   var onLoadFormHandler = function () {
-    window.removeErrors();
+    window.backend.removeErrors();
     window.userForm.reset();
     window.onRoomNumberChangeHandler();
     window.onRoomTypeChangeHandler();
@@ -74,7 +74,7 @@
       errorsForShow.push(errorMessage);
     }
 
-    window.renderErrors(errorsForShow);
+    window.backend.renderErrors(errorsForShow);
   };
 
   var onSubmitHandler = function (evt) {
