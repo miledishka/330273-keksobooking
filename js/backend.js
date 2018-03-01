@@ -16,7 +16,7 @@
       } else if (xhr.status === STATUS_BAD_REQUEST) {
         onError(xhr.response);
       } else {
-        onError(xhr.response);
+        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     };
 
